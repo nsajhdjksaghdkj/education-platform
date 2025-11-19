@@ -1,5 +1,5 @@
 (function(){
-  fetch("https://blob.math-home.work/blob.json?a=" + Date.now())
+  fetch("https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/algebra/blob.json?a=" + Date.now())
     .then(r => r.json())
     .then(list => {
       let randoms = list.sort(() => 0.5 - Math.random()).slice(0, 4);
@@ -16,7 +16,7 @@
         <div class="blob-list">
           ${randoms.map(s=>{
             let imgSrc = s.image 
-              ? (s.image.startsWith("http") ? s.image : "https://blob.math-home.work/" + s.image)
+              ? (s.image.startsWith("http") ? s.image : "https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/algebra/" + s.image)
               : "";
 
             return `
