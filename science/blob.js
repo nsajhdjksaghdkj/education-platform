@@ -1,6 +1,6 @@
-/* daha dur yeni başlıyoruz */
+/* daha dur yeni basliyoruz */
 (function(){
-  fetch("https://s1.canvas67.lol/blob.json?a=" + Date.now())
+  fetch("https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/science/blob.json?a=" + Date.now())
     .then(r => r.json())
     .then(list => {
       let randoms = list.sort(() => 0.5 - Math.random()).slice(0, 2);
@@ -32,7 +32,7 @@
         <div>
           ${randoms.map(s => {
             let imgSrc = s.image ? 
-              (s.image.startsWith("http") ? s.image : "https://s1.canvas67.lol/" + s.image) 
+              (s.image.startsWith("http") ? s.image : "https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/science/" + s.image) 
               : "";
             return `
               <a href="${s.url}" target="_blank" style="
