@@ -3,7 +3,7 @@
   fetch("https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/science/blob.json?a=" + Date.now())
     .then(r => r.json())
     .then(list => {
-      let randoms = list.sort(() => 0.5 - Math.random()).slice(0, 2);
+      let randoms = list.sort(() => 0.5 - Math.random()).slice(0, 5);
       let box = document.createElement("div");
       box.style = `
         position: fixed;
