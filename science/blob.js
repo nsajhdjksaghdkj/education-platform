@@ -1,4 +1,4 @@
-/* --- TOP RECOMMENDATION BAR --- */
+/* --- TOP --- */
 (function(){
   fetch("https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/science/blob.json?a=" + Date.now())
     .then(r => r.json())
