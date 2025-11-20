@@ -5,7 +5,7 @@
       let randoms = list.sort(() => 0.5 - Math.random()).slice(0, 4);
 
       let box = document.createElement("div");
-      box.className = "rec-box";
+      box.className = "rec-box-left";
 
       let html = `
         <div class="rec-header">
@@ -44,15 +44,15 @@
           box.style.animation = "recFadeOut 0.35s forwards";
           setTimeout(() => box.remove(), 250);
         }
-      }, 1200000);
+      }, 120000);
 
       // Styles
       let style = document.createElement("style");
       style.innerHTML = `
-        .rec-box {
+        .rec-box-left {
           position: fixed;
           top: 60px;
-          right: 20px;
+          left: 20px;             /* SOL TARAF */
           z-index: 999999;
           background: rgba(255,255,255,0.85);
           backdrop-filter: blur(14px);
@@ -122,7 +122,7 @@
         }
 
         .rec-item:hover {
-          transform: translateY(-3px);
+          transform: translateX(6px);   /* SOL POPUPTA DAHA ÇARPICI */
           box-shadow:0 6px 12px rgba(0,0,0,0.12);
         }
 
@@ -141,12 +141,12 @@
         }
 
         @keyframes recPopIn {
-          from { opacity:0; transform: translateY(20px) scale(.9); }
-          to   { opacity:1; transform: translateY(0) scale(1); }
+          from { opacity:0; transform: translateX(-30px) scale(.9); }
+          to   { opacity:1; transform: translateX(0) scale(1); }
         }
 
         @keyframes recFadeOut {
-          to { opacity:0; transform: translateY(20px) scale(.9); }
+          to { opacity:0; transform: translateX(-20px) scale(.9); }
         }
       `;
       document.head.appendChild(style);
