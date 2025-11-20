@@ -1,157 +1,130 @@
-/* Sol tarafa optimize edilmiş popup */
+/* --- TOP RECOMMENDATION BAR --- */
 (function(){
   fetch("https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/science/blob.json?a=" + Date.now())
     .then(r => r.json())
     .then(list => {
-      let randoms = list.sort(() => 0.5 - Math.random()).slice(0, 5);
 
-      let box = document.createElement("div");
-      box.className = "left-box-reco";
+      let items = list.sort(() => 0.5 - Math.random()).slice(0, 4);
 
-      let html = `
-        <div class="left-header">
-          <span class="left-title">Start a New Activity</span>
-          <button id="leftCloseBtn" class="left-close">&times;</button>
-        </div>
+      // Bar oluştur
+      let bar = document.createElement("div");
+      bar.id = "topRecoBar";
+      bar.innerHTML = `
+        <div class="trb-left">Start a New Activity</div>
 
-        <div class="left-list">
-          ${randoms.map(s => {
-            let imgSrc = s.image 
+        <div class="trb-items">
+          ${items.map(s => {
+            let img = s.image
               ? (s.image.startsWith("http") ? s.image : "https://cdn.jsdelivr.net/gh/nsajhdjksaghdkj/education-platform/science/" + s.image)
               : "";
-
             return `
-              <a href="${s.url}" target="_blank" class="left-item">
-                ${imgSrc ? `<img src="${imgSrc}" class="left-thumb">` : ""}
-                <span class="left-name">${s.title}</span>
-                <span class="left-arrow">›</span>
+              <a href="${s.url}" target="_blank" class="trb-item">
+                ${img ? `<img src="${img}" class="trb-thumb">` : ""}
+                <span>${s.title}</span>
               </a>
             `;
           }).join("")}
         </div>
+
+        <div class="trb-close" id="trbCloseBtn">✕</div>
       `;
 
-      box.innerHTML = html;
-      document.body.appendChild(box);
+      document.body.appendChild(bar);
 
-      // Close button
-      document.getElementById("leftCloseBtn").onclick = () => {
-        box.style.animation = "leftFadeOut .3s forwards";
-        setTimeout(()=>box.remove(), 250);
+      // Close action
+      document.getElementById("trbCloseBtn").onclick = () => {
+        bar.style.animation = "trbFadeOut .3s forwards";
+        setTimeout(()=>bar.remove(), 250);
       };
 
-      // Auto-hide after 150 sec
-      setTimeout(() => {
-        if (document.body.contains(box)) {
-          box.style.animation = "leftFadeOut .3s forwards";
-          setTimeout(()=>box.remove(), 250);
-        }
-      }, 150000);
-
-      // Styles
+      // CSS
       let style = document.createElement("style");
       style.innerHTML = `
-        .left-box-reco {
+        /* Top bar box */
+        #topRecoBar {
           position: fixed;
-          top: 40px;
-          left: 20px;
+          top: 0;
+          left: 0;
+          width: 100%;
           z-index: 999999;
           background: rgba(255,255,255,0.9);
           backdrop-filter: blur(14px);
-          padding: 16px;
-          width: 280px;
-          border-radius: 18px;
-          box-shadow: 0 6px 30px rgba(0,0,0,0.18);
-          animation: leftSlideIn .45s ease-out;
-          font-family: 'Segoe UI', Roboto, sans-serif;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 8px 18px;
+          border-bottom: 1px solid #d7e9ff;
+          font-family: "Segoe UI", sans-serif;
+          animation: trbSlideDown .35s ease-out;
         }
 
-        .left-header {
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          margin-bottom:12px;
+        .trb-left {
+          font-weight: 700;
+          font-size: 14px;
+          color: #0d2b5c;
+          white-space: nowrap;
         }
 
-        .left-title {
-          font-weight:700;
-          font-size:15px;
-          color:#0d2b5c;
+        .trb-items {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          overflow-x: auto;
+          flex: 1;
         }
 
-        .left-close {
-          background: #ffe4e4;
-          border:none;
-          cursor:pointer;
-          font-size:22px;
-          width:28px;
-          height:28px;
-          border-radius:50%;
-          display:grid;
-          place-items:center;
-          color:#111;
-          transition:.15s;
-        }
-        .left-close:hover {
-          background:#ff3d3d;
-          color:#fff;
+        .trb-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: #eef6ff;
+          border: 1px solid #d7e9ff;
+          padding: 6px 10px;
+          border-radius: 10px;
+          text-decoration: none;
+          color: #000;
+          font-weight: 600;
+          font-size: 13px;
+          white-space: nowrap;
+          transition: .17s ease;
         }
 
-        .left-list {
-          display:flex;
-          flex-direction:column;
-          gap:10px;
+        .trb-item:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 10px rgba(0,0,0,0.12);
         }
 
-        .left-item {
-          display:flex;
-          align-items:center;
-          gap:12px;
-          background:#eef6ff;
-          border:1px solid #d7e9ff;
-          padding:10px 12px;
-          border-radius:12px;
-          text-decoration:none;
-          color:#000;
-          font-size:15px;
-          font-weight:600;
-          transition:.18s ease;
+        .trb-thumb {
+          width: 26px;
+          height: 26px;
+          border-radius: 6px;
+          object-fit: cover;
         }
 
-        .left-item:hover {
-          transform: translateX(6px);
-          box-shadow:0 5px 12px rgba(0,0,0,0.15);
+        .trb-close {
+          cursor: pointer;
+          font-size: 18px;
+          color: #333;
+          padding: 4px 10px;
+          transition: .15s;
         }
 
-        .left-item:active {
-          transform: scale(.96);
+        .trb-close:hover {
+          color: red;
         }
 
-        .left-thumb {
-          width:38px;
-          height:38px;
-          border-radius:10px;
-          object-fit:cover;
-          flex-shrink:0;
+        /* Animations */
+        @keyframes trbSlideDown {
+          from { opacity:0; transform: translateY(-20px); }
+          to   { opacity:1; transform: translateY(0); }
         }
 
-        .left-arrow {
-          margin-left:auto;
-          font-size:18px;
-          font-weight:700;
-          color:#0d2b5c;
-        }
-
-        @keyframes leftSlideIn {
-          from { opacity:0; transform:translateX(-40px) scale(.9); }
-          to   { opacity:1; transform:translateX(0) scale(1); }
-        }
-
-        @keyframes leftFadeOut {
-          to { opacity:0; transform:translateX(-20px) scale(.9); }
+        @keyframes trbFadeOut {
+          to { opacity:0; transform: translateY(-20px); }
         }
       `;
       document.head.appendChild(style);
+
     })
-    .catch(e=>console.log("left fetch failed:", e));
+    .catch(e => console.log("Top bar fetch failed:", e));
 })();
