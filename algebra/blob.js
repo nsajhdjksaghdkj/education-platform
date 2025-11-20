@@ -44,7 +44,7 @@
           box.style.animation = "recFadeOut 0.35s forwards";
           setTimeout(() => box.remove(), 250);
         }
-      }, 120000);
+      }, 1200000);
 
       // Styles
       let style = document.createElement("style");
